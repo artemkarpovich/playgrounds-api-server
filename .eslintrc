@@ -21,6 +21,6 @@
       "single"
     ],
     "semi": 2,
-    "no-unused-vars": 0
+    "no-console": 0
  }
 }
