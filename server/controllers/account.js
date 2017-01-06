@@ -12,7 +12,7 @@ export function logout(req, res) {
 export function signIn(req, res, next) {
   passport.authenticate('local', (err, user, info) => {
     if (err) return next(err);
-    if (!user) return res.json(info);
+    if (!user) return next(info);
 
     req.logInPromise(user)
       .then(() => res.json(req.user))

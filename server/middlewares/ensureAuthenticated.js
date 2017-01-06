@@ -1,11 +1,12 @@
 import Promise from 'bluebird';
+import Boom from 'boom';
 
 export default (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
 
-  res.redirect('/api/v1/hello');
+  return next(Boom.unauthorized('You have not access'));
 };
 
 export const logInPromise = (req, res, next) => {

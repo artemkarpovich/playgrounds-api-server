@@ -1,4 +1,5 @@
 import LocalStrategy from 'passport-local';
+import Boom from 'boom';
 import Account from './../models/account';
 
 export default (passport) => {
@@ -20,16 +21,16 @@ export default (passport) => {
     Account.findOne({ email })
       .then(user => {
         if (!user) {
-          return done(null, false, { message: 'Incorrect username.' });
+          return done(null, false, Boom.unauthorized('User does not found'));
         }
 
         if (!user.verifyPassword(password)) {
-          return done(null, false, { message: 'Incorrect password.' });
+          return done(null, false, Boom.unauthorized('Password is not correct'));
         }
 
         return done(null, user);
       })
-      .catch(err => done(err));
+      .catch((err) => done(Boom.badImplementation(err)));
   }
   ));
 };
