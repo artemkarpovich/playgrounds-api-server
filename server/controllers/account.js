@@ -14,10 +14,8 @@ export function signIn(req, res, next) {
     if (err) return next(err);
     if (!user) return res.json(info);
 
-    req.logIn(user, err => {
-      if (err) return next(err);
-
-      return res.json(req.user);
-    });
+    req.logInPromise(user)
+      .then(() => res.json(req.user))
+      .catch(err => next(err));
   })(req, res, next);
 }
