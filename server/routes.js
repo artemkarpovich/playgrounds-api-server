@@ -10,6 +10,6 @@ router.get('/hello', (req, res) => {
 
 router.get('/protected', ensureAuthenticated, getUser);
 router.get('/logout', ensureAuthenticated, logout);
-router.post('/signin', ensureAuthenticated, signIn);
+router.post('/signin', signIn);
 
 export default router;

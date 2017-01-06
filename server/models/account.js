@@ -18,12 +18,11 @@ const Account = mongoose.model('Account', accountSchema);
 
 const newAccount = new Account({
   email: 'akrpovich@gmail.com',
-  password: '1234',
+  password: Account.generateHash('1234'),
 });
 
-newAccount.save((err, account) => {
-  if (err) console.log(err);
-  console.log(account);
-});
+newAccount.save()
+  .then(account => console.log(account))
+  .catch(err => console.log(err));
 
 export default Account;
