@@ -9,6 +9,7 @@ import morgan from 'morgan';
 import config from './config';
 import routes from './routes';
 import passportStrategy from './middlewares/passport';
+import errorHandler from './middlewares/errorHandler';
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(passport.session());
 passportStrategy(passport);
 
 app.use('/api/v1', routes);
+app.use(errorHandler);
 
 app.listen(config.port, () => {
   console.log('server is running on port: ', config.port);
