@@ -16,13 +16,4 @@ accountSchema.methods.verifyPassword = function(password) {
 
 const Account = mongoose.model('Account', accountSchema);
 
-const newAccount = new Account({
-  email: 'akrpovich@gmail.com',
-  password: Account.generateHash('1234'),
-});
-
-newAccount.save()
-  .then(account => console.log(account))
-  .catch(err => console.log(err));
-
 export default Account;

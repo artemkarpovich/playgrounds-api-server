@@ -1,4 +1,6 @@
 import passport from 'passport';
+import Boom from 'boom';
+import Account from './../models/account';
 
 export function getUser(req, res) {
   res.json(req.user);
@@ -15,7 +17,27 @@ export function signIn(req, res, next) {
     if (!user) return next(info);
 
     req.logInPromise(user)
-      .then(() => res.json(req.user))
+      .then((result) => {
+        console.log(result);
+        return res.json(req.user);
+      })
       .catch(err => next(err));
   })(req, res, next);
+}
+
+export function createAccount(req, res, next) {
+  Account.findOne({ email: req.body.email })
+    .then(account => {
+      if (account) {
+        return next(Boom.conflict('Account already exists'));
+      }
+
+      return Account.create({
+        email: req.body.email,
+        password: Account.generateHash(req.body.password)
+      });
+    })
+    .then(account => req.logInPromise(account))
+    .then(() => res.json(req.user))
+    .catch(err => next(err));
 }
