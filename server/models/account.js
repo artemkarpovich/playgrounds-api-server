@@ -4,6 +4,12 @@ import bcrypt from 'bcrypt-nodejs';
 const accountSchema = new Schema({
   email: String,
   password: String,
+  google: {
+    id: String,
+    token: String,
+    name: String,
+    email: String,
+  },
 });
 
 accountSchema.statics.generateHash = (password) => {
