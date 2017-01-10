@@ -13,10 +13,10 @@ router.get('/protected', ensureAuthenticated, getUser);
 router.get('/logout', ensureAuthenticated, logout);
 router.post('/signin', logInPromise, signIn);
 router.post('/signup', logInPromise, createAccount);
-router.get('/google-signin', passport.authenticate('google', { scope: ['profile', 'email'] }));
-router.get('/google_signin', passport.authenticate('google', {
-  successRedirect : '/api/v1/protected',
-  failureRedirect : '/api/v1'
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/auth/google/callback', passport.authenticate('google', {
+  successRedirect : 'http://localhost:3001/index',
+  failureRedirect : 'http://localhost:3001'
 }));
 
 export default router;

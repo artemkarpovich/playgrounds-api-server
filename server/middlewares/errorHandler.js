@@ -1,6 +1,7 @@
-import Boom from 'boom';
+// import Boom from 'boom';
 
 export default function(err, req, res, next) {
+  console.log(err, 'errr---');
   if (err.isBoom) {
     const statusCode = err.output.statusCode;
     const data = err.output;
@@ -8,5 +9,5 @@ export default function(err, req, res, next) {
     return res.status(statusCode).json(data);
   }
 
-  return res.json(Boom.badImplementation());
+  return res.json(err);
 }
