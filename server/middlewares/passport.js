@@ -1,6 +1,7 @@
 import Account from './../models/account';
 import localSignInStrategy from './../strategies/local';
 import googleSignInStrategy from './../strategies/google';
+import facebookSignInStrategy from './../strategies/facebook';
 
 export default (passport) => {
   passport.serializeUser((user, done) => {
@@ -15,4 +16,5 @@ export default (passport) => {
 
   passport.use('local', localSignInStrategy);
   passport.use('google', googleSignInStrategy);
+  passport.use('facebook', facebookSignInStrategy);
 };

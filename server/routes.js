@@ -18,5 +18,10 @@ router.get('/auth/google/callback', passport.authenticate('google', {
   successRedirect : 'http://localhost:3001/index',
   failureRedirect : 'http://localhost:3001'
 }));
+router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+router.get('/auth/facebook/callback', passport.authenticate('facebook', {
+    successRedirect : 'http://localhost:3001/index',
+    failureRedirect : 'http://localhost:3001'
+}));
 
 export default router;
