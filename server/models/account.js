@@ -16,6 +16,13 @@ const accountSchema = new Schema({
     name: String,
     email: String,
   },
+  twitter: {
+    id: String,
+    token: String,
+    name: String,
+    email: String,
+    displayName: String,
+  },
 });
 
 accountSchema.statics.generateHash = (password) => {

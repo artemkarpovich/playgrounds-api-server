@@ -20,8 +20,13 @@ router.get('/auth/google/callback', passport.authenticate('google', {
 }));
 router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 router.get('/auth/facebook/callback', passport.authenticate('facebook', {
-    successRedirect : 'http://localhost:3001/index',
-    failureRedirect : 'http://localhost:3001'
+  successRedirect : 'http://localhost:3001/index',
+  failureRedirect : 'http://localhost:3001'
+}));
+router.get('/auth/twitter', passport.authenticate('twitter'));
+router.get('/auth/twitter/callback', passport.authenticate('twitter', {
+  successRedirect : 'http://localhost:3001/index',
+  failureRedirect : 'http://localhost:3001'
 }));
 
 export default router;
