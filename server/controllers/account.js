@@ -14,7 +14,7 @@ export function logout(req, res) {
 export function signIn(req, res, next) {
   passport.authenticate('local', (err, user, info) => {
     if (err) return next(err);
-    if (!user) return next(info);
+    if (!user) return next(Boom.unauthorized(info.message));
 
     req.logInPromise(user)
       .then(() => res.json(req.user))

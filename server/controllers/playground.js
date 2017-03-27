@@ -3,7 +3,6 @@ import Playground from './../models/playground';
 export function createPlayground(req, res, next) {
   Playground.create({
     category: req.body.category,
-    userId: req.user._id,
     title: req.body.title,
     location: req.body.location,
     latitude: req.body.latitude,

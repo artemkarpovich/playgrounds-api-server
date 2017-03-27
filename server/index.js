@@ -13,13 +13,19 @@ import errorHandler from './middlewares/errorHandler';
 
 const app = express();
 
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
 mongoose.Promise = Promise;
 mongoose.connect(config.database);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 
 app.use(morgan('dev'));
 
@@ -36,6 +42,15 @@ passportStrategy(passport);
 app.use('/api/v1', routes);
 app.use(errorHandler);
 
-app.listen(config.port, () => {
+io.on('connection', (socket) => {
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
+  socket.on('disconnect', () => {
+    console.log('a user disconnected');
+  });
+});
+
+http.listen(config.port, () => {
   console.log('server is running on port: ', config.port);
 });
